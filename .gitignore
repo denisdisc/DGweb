@@ -1,0 +1,6 @@
+.vscode/
+DGbot/
+env/
+__pycache__/
+config.py
+static/

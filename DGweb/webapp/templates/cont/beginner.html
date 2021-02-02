@@ -1,0 +1,85 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="album py-5 box">
+      <div class="container">
+        {% if session['city'] == 'no' %}
+        <h1 class="text-center text-dark">КОГДА ТУРНИР для НОВИЧКОВ?</h1>
+        <br>
+        <p>Выбирите город</p>
+        {% elif session['city'] == 'Msc' %}
+            <h1 class="text-center text-dark">КОГДА ТУРНИР для НОВИЧКОВ в МОСКВЕ?</h1>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                <img src="/static/mclassMSC.jpg" class="rounded mx-auto d-block" width=100% height=100% alt="альтернативный текст"></a>
+              </div>
+              <div class="col-md-6">
+                <p1>Про московские новичковые турниры</p1><br>
+                <p1>- 1й этап лиги</p1><br>
+                <p1>- 2й этап лиги</p1><br>
+                <p1>- 3й этап лиги</p1>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+              <div class="col-md-6">
+                  <p3>Расписание Москва.<br>
+                     Стоимость.<br>
+                     Ссылки на контакты, магазин
+                  </p3>
+              </div>
+              <div class="col-md-6">
+                  <img src="/static/mclassSPB.jpg" class="rounded mx-auto d-block" width=100% height=100% alt="альтернативный текст"></a>
+              </div>
+            </div>
+        {% elif session['city'] == 'SPb' %}
+              <h1 class="text-center text-dark">КОГДА ТУРНИР для НОВИЧКОВ в ПИТЕРЕ?</h1>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                  <img src="/static/mclassSPB.jpg" class="rounded mx-auto d-block" width=100% height=100% alt="альтернативный текст"></a>
+                </div>
+                <div class="col-md-6">
+                  <p1>Про питерские новичковые турниры</p1><br>
+                  <p1>- 1й этап лиги</p1><br>
+                  <p1>- 2й этап лиги</p1><br>
+                  <p1>- 3й этап лиги</p1>
+                </div>
+              </div>
+              <br>
+              <br>
+              <div class="row">
+                <div class="col-md-6">
+                    <p3>Расписание Питер.<br>
+                       Стоимость.<br>
+                       Ссылки на контакты, магазин
+                    </p3>
+                </div>
+                <div class="col-md-6">
+                    <img src="/static/mclassMSC.jpg" class="rounded mx-auto d-block" width=100% height=100% alt="альтернативный текст"></a>
+                </div>
+              </div>
+        {% endif %}
+        <br>
+        <div class="row text-center">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2 bg-dark" style="height: 10px;">
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+        {% include 'steps.html' %}
+        <br>
+      </div>
+    </div>
+{% endblock %} 
