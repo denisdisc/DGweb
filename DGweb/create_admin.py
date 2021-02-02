@@ -26,3 +26,4 @@ with app.app_context():
     db.session.add(new_user)
     db.session.commit()
     print('User with id {} added'.format(new_user.id))
+
