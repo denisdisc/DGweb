@@ -14,12 +14,18 @@
       }
       .bg-cover {
         background-size: cover !important;
-        background: url(/static/bg1.png);
+        background: url(/static/bg1.png); /* bg2.jpg   bg1.png */
       }
       .box
       {
         position: relative;
         background: rgba(255, 255, 255, .2);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+      }
+      .box-intens
+      {
+        position: relative;
+        background: rgba(255, 255, 255, .8);
         box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
       }
       .scale {
@@ -28,8 +34,11 @@
       .scale:hover {
         transform: scale(1.6); /* Увеличиваем масштаб */
       }
+      .position-relative {
+        position: fixed;
+      }
      </style>
-    <title>{{ page_title}}</title>
+    <title>{{ g.title }}</title>
   </head>
   
   <body>
@@ -38,14 +47,49 @@
         <br>
       </div>
       <div class="container">
-        <h1 class="text-center text-dark">ДИСК-ГОЛЬФ в РОССИИ</h1>
         <div class="row">
-          <br>
+          <div class="col-md-7 my-auto">
+            <h1 class="text-dark ml-3">ДИСК-ГОЛЬФ в РОССИИ</h1>
+          </div>
+          <div class="col-md-5">
+            <div class="row">
+            {% if current_user.is_authenticated %}
+              <div class="col-md-5 mx-auto">
+                <p class="my-2" style="font-size: 1.5vw;">Привет, {{ current_user.username }}</p>
+              </div>
+              <div class="col-md-2 mx-3 align-top">
+                {% if current_user.is_admin %}
+                  <a href="{{ url_for('admin.admin_index') }}" class="btn btn-light" role="button" aria-disabled="true">Админка</a>
+                {% endif %}
+              </div>
+              <div class="col-md-2 mx-4 align-top">
+                <a href="{{ url_for('user.logout') }}" class="btn btn-light" role="button" aria-disabled="true">Выйти</a>
+                  <a class="nav-link" href="{{ url_for('user.logout') }}"></a>
+              </div>
+            {% else %}
+              <div class="col-md-3 mx-auto align-top">
+              </div>
+              <div class="col-md-4 mx-auto align-top">
+                <a href="{{ url_for('user.register') }}" class="btn btn-light" role="button" aria-disabled="true">Зарегистрироваться</a>
+              </div>
+              <div class="col-md-2 mx-4 align-top">
+                <a href="{{ url_for('user.login') }}" class="btn btn-light" role="button" aria-disabled="true">Войти</a>
+              </div>
+            {% endif %}
+          </div>
+          </div>
         </div>
+        <div class="sticky-top">
         {% include 'topmenu.html' %}
-        <div class="row">
-          <br>
         </div>
+        <nav aria-label="breadcrumb" class="ml-4 my-3">
+          <p style="font-size: 1.8vw;">
+            {% for breadcrumb in breadcrumbs %}
+              <a href="{{ breadcrumb.url }}">{{ breadcrumb.text }}</a>
+              {{ '>' if not loop.last }}
+            {% endfor %}
+          </p>
+        </nav>
         <main role="main">
           {% block content %}{% endblock %}
         </main>
@@ -55,21 +99,38 @@
           <!--<p class="float-right">
             <a href="#">Наверх ↑</a>
           </p>-->
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h3 class="text-black">Контакты</h3>
-            <ul class="list-unstyled">
-              <li><a href="https://www.instagram.com/discgolf_spb/" class="text-secodary"><h5>Инстаграм: discgolf_spb</h5></a></li>
-              <li><a href="https://vk.com/discgolfspb" class="text-secodary"><h5>ВК: discgolfspb</h5></a></li>
-              <li><a href="#" class="text-secodary"><h5>Email: discgolfspb@gmail.com</h5></a></li>
-            </ul>
+          <div class="row align-items-center">
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h3 class="text-black">Контакты</h3>
+              <ul class="list-unstyled">
+                {% if session['city'] == 'no' %}
+                  <li><a href="https://www.instagram.com/discgolf_spb/" class="text-secodary"><h5>Инстаграм: discgolf_russia</h5></a></li>
+                  <li><a href="https://vk.com/discgolfspb" class="text-secodary"><h5>ВК: rdga</h5></a></li>
+                  <li><a href="#" class="text-secodary"><h5>Email: example@gmail.com</h5></a></li>
+                {% elif session['city'] == 'Msc' %}
+                  <li><a href="https://www.instagram.com/discgolf_spb/" class="text-secodary"><h5>Инстаграм: discgolf.msk</h5></a></li>
+                  <li><a href="https://vk.com/discgolfspb" class="text-secodary"><h5>ВК: discgolfmsk</h5></a></li>
+                  <li><a href="#" class="text-secodary"><h5>Email: discgolfmsk@gmail.com</h5></a></li>
+                {% elif session['city'] == 'SPb' %}
+                  <li><a href="https://www.instagram.com/discgolf_spb/" class="text-secodary"><h5>Инстаграм: discgolf_spb</h5></a></li>
+                  <li><a href="https://vk.com/discgolfspb" class="text-secodary"><h5>ВК: discgolfspb</h5></a></li>
+                  <li><a href="#" class="text-secodary"><h5>Email: discgolfspb@gmail.com</h5></a></li>
+                {% elif session['city'] == 'Ekb' %}
+                <li><a href="https://www.instagram.com/discgolf_ekb/" class="text-secodary"><h5>Инстаграм: discgolf_ekb</h5></a></li>
+                <li><a href="https://vk.com/discgolf_ekb" class="text-secodary"><h5>ВК: discgolfekb</h5></a></li>
+                <li><a href="#" class="text-secodary"><h5>Email: ffds.info@ya.ru</h5></a></li>
+                {% endif %}
+              </ul>
+            </div>
+            <div class="col-4 offset-md-1">
+              <img src="/static/rdga.png" class="float-right aligin-center" alt="logo" width="120" height="120">
+            </div>
           </div>
         </div>
       <div class="row">
         <br>
       </div>
       </footer>
-      
-      
       
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -36,3 +36,9 @@ def collectlinks():
                     title = name[0]
                     save_events(title, url)        
     driver.close()
+
+#def event_data():
+#    part_1 = current_app.config['URL_EVENT']
+#    part_2 = '1588755'
+#    pars_page = f'{part_1}{part_2}'
+#    driver.get(pars_page)
